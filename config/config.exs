@@ -1,0 +1,20 @@
+# This file is responsible for configuring your application
+# and its dependencies with the aid of the Mix.Config module.
+#
+# This configuration file is loaded before any dependency and
+# is restricted to this project.
+
+# General application configuration
+use Mix.Config
+
+config :drill, Drill.Demo.Repo,
+  database: "drill_repo",
+  username: "user",
+  password: "pass",
+  hostname: "localhost"
+
+config :drill, ecto_repos: [Drill.Demo.Repo]
+
+# Import environment specific config. This must remain at the bottom
+# of this file so it overrides the configuration defined above.
+import_config "#{Mix.env()}.exs"
