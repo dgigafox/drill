@@ -8,9 +8,9 @@
 use Mix.Config
 
 config :drill, Drill.Demo.Repo,
-  database: "drill_repo",
-  username: "user",
-  password: "pass",
+  database: "drill_demo",
+  username: "postgres",
+  password: "postgres",
   hostname: "localhost"
 
 config :drill, ecto_repos: [Drill.Demo.Repo]

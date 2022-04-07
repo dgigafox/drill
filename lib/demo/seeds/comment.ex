@@ -1,12 +1,36 @@
 defmodule Drill.Demo.CommentSeed do
-  use Drill, key: :comment
+  use Drill, key: :comment, source: Drill.Demo.Comment
+  alias Faker.Lorem
 
   @impl true
   def deps do
-    [Drill.Demo.Post]
+    [Drill.Demo.PostSeed]
   end
 
   @impl true
-  def run(%Drill.Context{}) do
+  def run(%Drill.Context{seeds: %{posts: [post1, post2, post3 | _], users: [user1, user2, user3]}}) do
+    [
+      %{
+        content: Lorem.paragraph(),
+        user_id: user1.id,
+        post_id: post1.id,
+        inserted_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+        updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+      },
+      %{
+        content: Lorem.paragraph(),
+        user_id: user2.id,
+        post_id: post2.id,
+        inserted_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+        updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+      },
+      %{
+        content: Lorem.paragraph(),
+        user_id: user3.id,
+        post_id: post3.id,
+        inserted_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+        updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+      }
+    ]
   end
 end

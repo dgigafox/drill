@@ -1,4 +1,4 @@
-defmodule Drill.Demo.Application do
+defmodule Drill.Application do
   @moduledoc false
   use Application
 
@@ -7,7 +7,7 @@ defmodule Drill.Demo.Application do
       Drill.Demo.Repo
     ]
 
-    opts = [strategy: :one_for_one, name: Ecto.Supervisor]
+    opts = [strategy: :one_for_one, name: Drill.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end

@@ -3,8 +3,11 @@ defmodule Drill.Context do
   Seed struct containing all inserted items as seeds
   """
   @type t :: %__MODULE__{
-          seeds: %{key: any()}
+          seeds: %{key: any()},
+          seeders: [atom()],
+          pending_seeders: [atom()],
+          completed_seeders: [atom()]
         }
 
-  defstruct seeds: %{}
+  defstruct seeds: %{}, seeders: [], pending_seeders: [], completed_seeders: []
 end
