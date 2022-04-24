@@ -13,13 +13,21 @@ defmodule Drill do
       @behaviour Drill
 
       def context_key, do: unquote(opts[:key])
-      def schema_or_source, do: unquote(opts[:source])
+      def schema, do: unquote(opts[:source])
 
       @impl true
       def constraints, do: []
 
       @impl true
       def deps, do: []
+
+      def autogenerate do
+        for {fields, {func, name, args}} <- schema().__schema__(:autogenerate),
+            field <- fields,
+            into: %{} do
+          {field, apply(func, name, args)}
+        end
+      end
 
       defoverridable deps: 0, constraints: 0
     end

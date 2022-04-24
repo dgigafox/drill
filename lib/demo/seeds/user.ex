@@ -15,23 +15,17 @@ defmodule Drill.Demo.UserSeed do
       %{
         email: Internet.email(),
         first_name: Person.first_name(),
-        last_name: Person.last_name(),
-        inserted_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
-        updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+        last_name: Person.last_name()
       },
       %{
         email: Internet.email(),
         first_name: Person.first_name(),
-        last_name: Person.last_name(),
-        inserted_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
-        updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+        last_name: Person.last_name()
       },
       %{
         email: Internet.email(),
         first_name: Person.first_name(),
-        last_name: Person.last_name(),
-        inserted_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
-        updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+        last_name: Person.last_name()
       }
     ]
   end

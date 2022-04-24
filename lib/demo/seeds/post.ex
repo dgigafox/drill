@@ -12,21 +12,15 @@ defmodule Drill.Demo.PostSeed do
     [
       %{
         content: Lorem.paragraph(),
-        user_id: user1.id,
-        inserted_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
-        updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+        user_id: user1.id
       },
       %{
         content: Lorem.paragraph(),
-        user_id: user2.id,
-        inserted_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
-        updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+        user_id: user2.id
       },
       %{
         content: Lorem.paragraph(),
-        user_id: user3.id,
-        inserted_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
-        updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+        user_id: user3.id
       }
     ]
   end
