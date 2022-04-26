@@ -9,11 +9,14 @@ defmodule Drill do
   @callback constraints() :: [atom()]
 
   defmacro __using__(opts \\ []) when is_list(opts) do
+    source = Keyword.fetch!(opts, :source)
+    key = Keyword.fetch!(opts, :key)
+
     quote do
       @behaviour Drill
 
-      def context_key, do: unquote(opts[:key])
-      def schema, do: unquote(opts[:source])
+      def context_key, do: unquote(key)
+      def schema, do: unquote(source)
 
       @impl true
       def constraints, do: []

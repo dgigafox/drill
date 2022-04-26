@@ -5,7 +5,7 @@
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+import Config
 
 config :drill, Drill.Demo.Repo,
   database: "drill_demo",
@@ -14,6 +14,7 @@ config :drill, Drill.Demo.Repo,
   hostname: "localhost"
 
 config :drill, ecto_repos: [Drill.Demo.Repo]
+config :drill, :otp_app, :drill
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

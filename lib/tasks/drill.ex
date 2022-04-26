@@ -1,16 +1,20 @@
 defmodule Mix.Tasks.Drill do
+  @moduledoc """
+  Runs all seeder modules that `use` Drill. Needs the Repo as an argument.
+      $ mix drill --r MyApp.Repo
+
+  Be sure to set the `otp_app` that contains the seeder modules in your config:
+      config :drill, :otp_app, :my_app
+  """
+  @shortdoc "Seeding task"
+
   use Mix.Task
   import Mix.Ecto
 
   alias Drill.Utils
   alias Ecto.Migrator
 
-  @shortdoc "Seeding task"
-
   @impl Mix.Task
-  @doc """
-  API for running this task via mix command.
-  """
   def run(args) do
     repo = parse_repo(args) |> hd()
     ensure_repo(repo, [])
@@ -22,7 +26,8 @@ defmodule Mix.Tasks.Drill do
   end
 
   def seed(repo) do
-    {:ok, modules} = :application.get_key(:drill, :modules)
+    otp_app = Application.fetch_env!(:drill, :otp_app)
+    {:ok, modules} = :application.get_key(otp_app, :modules)
 
     seeder_modules =
       Enum.filter(modules, fn module ->
