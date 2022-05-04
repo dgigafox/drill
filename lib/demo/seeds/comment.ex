@@ -1,4 +1,5 @@
 defmodule Drill.Demo.CommentSeed do
+  @moduledoc false
   use Drill, key: :comment, source: Drill.Demo.Comment
   alias Faker.Lorem
 
