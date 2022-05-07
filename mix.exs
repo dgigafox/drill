@@ -1,6 +1,8 @@
 defmodule Drill.MixProject do
   use Mix.Project
 
+  @source_url "https://github.com/dgigafox/drill"
+
   def project do
     [
       app: :drill,
@@ -9,7 +11,9 @@ defmodule Drill.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      dialyzer: dialyzer()
+      dialyzer: dialyzer(),
+      package: package(),
+      description: description()
     ]
   end
 
@@ -28,7 +32,8 @@ defmodule Drill.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:faker, "~> 0.17"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false}
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
@@ -46,6 +51,19 @@ defmodule Drill.MixProject do
       plt_core_path: "priv/plts",
       plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
       plt_add_apps: [:mix]
+    ]
+  end
+
+  defp description do
+    """
+    Seed data handling for Elixir
+    """
+  end
+
+  defp package do
+    [
+      licenses: ["MIT"],
+      links: %{"GitHub" => @source_url}
     ]
   end
 end

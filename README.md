@@ -62,13 +62,14 @@ config :drill, :otp_app, :my_app
 
 ## Installation
 
-This project is not yet published on [Hex](https://hex.pm/packages) so for the meantime you can add it to
-the list of dependencies in mix.exs as a github path:
+Drill is available on [Hex](https://hex.pm/packages).
+
+To add it to a mix project, just add a line like this in your deps function in mix.exs:
 
 ```elixir
 def deps do
   [
-    {:drill, git: "git@github.com:dgigafox/drill.git"}
+    {:drill, "~> 0.1", only: [:dev, :test]},
   ]
 end
 ```
