@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         elixir: [1.13.4]
-        otp: [24]
+        otp: [24.3.3]
 
     steps:
       - uses: actions/checkout@v3
@@ -37,7 +37,7 @@ jobs:
         with:
           path: deps
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-          restore-keys: ${{ runner.os }}-mix-
+          restore-keys: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
 
       - name: Install dependencies
         if: steps.mix-cache.outputs.cache-hit != 'true'
@@ -53,11 +53,12 @@ jobs:
         run: mix credo --strict
 
       - name: Retrieve PLT Cache
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         id: plt-cache
         with:
           path: priv/plts
           key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plts-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+          restore-keys: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plts-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
 
       - name: Create PLTs
         if: steps.plt-cache.outputs.cache-hit != 'true'
