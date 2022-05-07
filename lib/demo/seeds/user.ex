@@ -1,4 +1,5 @@
 defmodule Drill.Demo.UserSeed do
+  @moduledoc false
   use Drill, key: :users, source: Drill.Demo.User
 
   alias Faker.Person

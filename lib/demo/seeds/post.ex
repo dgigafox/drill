@@ -1,4 +1,5 @@
 defmodule Drill.Demo.PostSeed do
+  @moduledoc false
   use Drill, key: :posts, source: Drill.Demo.Post
   alias Faker.Lorem
 
