@@ -69,5 +69,7 @@ jobs:
       - name: Run dialyzer
         run: mix dialyzer --no-check --halt-exit-status
 
+      - run: mix ecto.reset
+
       - name: Run tests
         run: mix test
