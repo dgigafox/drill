@@ -90,6 +90,10 @@ end
   such as `:inserted_at` or `:updated_at` may not be defined. The first argument is the `Drill.Context` struct, which
   you can use to get the inserted records from previously run seeder modules (see Usage section above).
 
+## Caveat
+
+Can only be used on Postgres database for now
+
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/drill](https://hexdocs.pm/drill).
