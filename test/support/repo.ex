@@ -1,4 +1,4 @@
-defmodule Drill.Demo.Repo do
+defmodule Drill.Test.Repo do
   @moduledoc false
 
   use Ecto.Repo,

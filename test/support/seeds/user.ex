@@ -1,6 +1,6 @@
-defmodule Drill.Demo.UserSeed do
+defmodule Drill.Test.UserSeed do
   @moduledoc false
-  use Drill, key: :users, source: Drill.Demo.User
+  use Drill, key: :users, source: Drill.Test.User
 
   alias Faker.Person
 

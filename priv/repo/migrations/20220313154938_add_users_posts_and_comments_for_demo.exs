@@ -1,4 +1,4 @@
-defmodule Drill.Demo.Repo.Migrations.AddUsersPostsAndCommentsForDemo do
+defmodule Drill.Test.Repo.Migrations.AddUsersPostsAndCommentsForDemo do
   use Ecto.Migration
 
   def change do

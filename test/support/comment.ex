@@ -1,11 +1,11 @@
-defmodule Drill.Demo.Comment do
+defmodule Drill.Test.Comment do
   @moduledoc false
   use Ecto.Schema
 
   schema "comments" do
     field(:content, :string)
-    belongs_to(:user, Drill.Demo.User)
-    belongs_to(:post, Drill.Demo.Post)
+    belongs_to(:user, Drill.Test.User)
+    belongs_to(:post, Drill.Test.Post)
 
     timestamps()
   end
