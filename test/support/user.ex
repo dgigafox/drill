@@ -1,4 +1,4 @@
-defmodule Drill.Demo.User do
+defmodule Drill.Test.User do
   @moduledoc """
   Demo user
   """

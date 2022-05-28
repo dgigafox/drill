@@ -1,11 +1,11 @@
-defmodule Drill.Demo.CommentSeed do
+defmodule Drill.Test.CommentSeed do
   @moduledoc false
-  use Drill, key: :comment, source: Drill.Demo.Comment
+  use Drill, key: :comment, source: Drill.Test.Comment
   alias Faker.Lorem
 
   @impl true
   def deps do
-    [Drill.Demo.PostSeed]
+    [Drill.Test.PostSeed]
   end
 
   @impl true
