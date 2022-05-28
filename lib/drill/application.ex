@@ -3,9 +3,7 @@ defmodule Drill.Application do
   use Application
 
   def start(_type, _args) do
-    children = [
-      Drill.Demo.Repo
-    ]
+    children = []
 
     opts = [strategy: :one_for_one, name: Drill.Supervisor]
     Supervisor.start_link(children, opts)

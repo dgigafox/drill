@@ -12,5 +12,8 @@ config :drill, Drill.Demo.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
+config :drill, ecto_repos: [Drill.Demo.Repo]
+config :drill, :otp_app, :drill
+
 # Print only warnings and errors during test
 config :logger, level: :warn

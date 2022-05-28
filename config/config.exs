@@ -7,15 +7,6 @@
 # General application configuration
 import Config
 
-config :drill, Drill.Demo.Repo,
-  database: "drill_demo",
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost"
-
-config :drill, ecto_repos: [Drill.Demo.Repo]
-config :drill, :otp_app, :drill
-
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

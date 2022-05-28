@@ -13,7 +13,8 @@ defmodule Drill.MixProject do
       deps: deps(),
       dialyzer: dialyzer(),
       package: package(),
-      description: description()
+      description: description(),
+      elixirc_paths: elixirc_paths(Mix.env())
     ]
   end
 
@@ -53,6 +54,9 @@ defmodule Drill.MixProject do
       plt_add_apps: [:mix]
     ]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp description do
     """
