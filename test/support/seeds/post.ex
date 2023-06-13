@@ -16,7 +16,7 @@ defmodule Drill.Test.PostSeed do
   @impl true
   def run(%Drill.Context{seeds: %{users: [user1, user2, user3 | _]}}) do
     for user <- [user1, user2, user3] do
-      build(user_id: user.id)
+      seed(user_id: user.id)
     end
   end
 end

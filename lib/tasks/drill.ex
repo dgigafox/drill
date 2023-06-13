@@ -46,7 +46,7 @@ defmodule Mix.Tasks.Drill do
       Enum.reduce(seeder_modules, %Drill.Context{}, fn seeder, ctx ->
         Mix.shell().info("#{seeder} started")
 
-        entries = seeder.run(ctx)
+        entries = Drill.build_entries(seeder, ctx)
         key = seeder.context_key()
         constraints = seeder.constraints()
         source = seeder.schema()

@@ -18,9 +18,9 @@ defmodule Drill.Test.CommentSeed do
         seeds: %{posts: [post1, post2, post3 | _], users: [user1, user2, user3 | _]}
       }) do
     [
-      build(user_id: user1.id, post_id: post1.id),
-      build(user_id: user2.id, post_id: post2.id),
-      build(user_id: user3.id, post_id: post3.id)
+      seed(user_id: user1.id, post_id: post1.id),
+      seed(user_id: user2.id, post_id: post2.id),
+      seed(user_id: user3.id, post_id: post3.id)
     ]
   end
 end

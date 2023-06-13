@@ -21,9 +21,9 @@ defmodule Drill do
 
     def run(_context) do
       [
-        build(email: "email1@example.com"),
-        build(email: "email2@example.com"),
-        build(email: "email3@example.com")
+        seed(email: "email1@example.com"),
+        seed(email: "email2@example.com"),
+        seed(email: "email3@example.com")
       ]
     end
   end
@@ -46,9 +46,9 @@ defmodule Drill do
 
     def run(%Drill.Context{seeds: %{users: [user1, user2, user3 | _]}}) do
       [
-        build(user_id: user1.id),
-        build(user_id: user2.id),
-        build(user_id: user3.id)
+        seed(user_id: user1.id),
+        seed(user_id: user2.id),
+        seed(user_id: user3.id)
       ]
     end
   end
@@ -90,9 +90,10 @@ defmodule Drill do
   * `factory/0` (required) - set default values for the fields. This is used when you call `build/1` from the seeder module.
   """
   alias Drill.Context
+  alias Drill.Seed
 
   @callback deps() :: [atom()]
-  @callback run(Context.t()) :: [map()]
+  @callback run(Context.t()) :: [Seed.t()]
   @callback factory() :: map()
   @callback constraints() :: [atom()]
 
@@ -120,12 +121,15 @@ defmodule Drill do
         end
       end
 
-      def build(attrs \\ []) do
-        attrs = Map.new(attrs)
-        __MODULE__.factory() |> Map.merge(attrs)
-      end
+      def seed(attrs \\ []), do: Seed.new(__MODULE__, attrs)
 
       defoverridable deps: 0, constraints: 0
     end
+  end
+
+  def build_entries(seeder, ctx) do
+    ctx
+    |> seeder.run()
+    |> Seed.to_entries()
   end
 end

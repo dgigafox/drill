@@ -19,9 +19,9 @@ defmodule Drill.Test.UserSeed do
   @impl true
   def run(%Drill.Context{}) do
     [
-      build(email: "email1@example.com"),
-      build(email: "email2@example.com"),
-      build(email: "email3@example.com")
+      seed(email: "email1@example.com"),
+      seed(email: "email2@example.com"),
+      seed(email: "email3@example.com")
     ]
   end
 end
