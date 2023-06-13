@@ -6,6 +6,7 @@ defmodule DrillTest do
     quote do
       use Drill, source: MySource, key: :my_key
 
+      def factory, do: %{}
       def run(_), do: []
     end
 
@@ -14,9 +15,12 @@ defmodule DrillTest do
   test "definitions" do
     assert Demo.__info__(:functions) == [
              autogenerate: 0,
+             build: 0,
+             build: 1,
              constraints: 0,
              context_key: 0,
              deps: 0,
+             factory: 0,
              run: 1,
              schema: 0
            ]

@@ -13,7 +13,7 @@ config :drill, Drill.Test.Repo,
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :drill, ecto_repos: [Drill.Test.Repo]
-config :drill, :otp_app, :drill
+config :drill, Drill, otp_app: :drill
 
 # Print only warnings and errors during test
 config :logger, level: :warn

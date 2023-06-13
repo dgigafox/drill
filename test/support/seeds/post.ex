@@ -9,20 +9,14 @@ defmodule Drill.Test.PostSeed do
   end
 
   @impl true
+  def factory do
+    %{content: Lorem.paragraph()}
+  end
+
+  @impl true
   def run(%Drill.Context{seeds: %{users: [user1, user2, user3 | _]}}) do
-    [
-      %{
-        content: Lorem.paragraph(),
-        user_id: user1.id
-      },
-      %{
-        content: Lorem.paragraph(),
-        user_id: user2.id
-      },
-      %{
-        content: Lorem.paragraph(),
-        user_id: user3.id
-      }
-    ]
+    for user <- [user1, user2, user3] do
+      build(user_id: user.id)
+    end
   end
 end

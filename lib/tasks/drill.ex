@@ -26,7 +26,8 @@ defmodule Mix.Tasks.Drill do
   end
 
   def seed(repo) do
-    otp_app = Application.fetch_env!(:drill, :otp_app)
+    otp_app = :drill |> Application.fetch_env!(Drill) |> Keyword.fetch!(:otp_app)
+
     {:ok, modules} = :application.get_key(otp_app, :modules)
 
     seeder_modules =
