@@ -26,7 +26,8 @@ defmodule Mix.Tasks.Drill do
   end
 
   def seed(repo) do
-    otp_app = Application.fetch_env!(:drill, :otp_app)
+    otp_app = :drill |> Application.fetch_env!(Drill) |> Keyword.fetch!(:otp_app)
+
     {:ok, modules} = :application.get_key(otp_app, :modules)
 
     seeder_modules =
@@ -45,7 +46,7 @@ defmodule Mix.Tasks.Drill do
       Enum.reduce(seeder_modules, %Drill.Context{}, fn seeder, ctx ->
         Mix.shell().info("#{seeder} started")
 
-        entries = seeder.run(ctx)
+        entries = Drill.build_entries(seeder, ctx)
         key = seeder.context_key()
         constraints = seeder.constraints()
         source = seeder.schema()
