@@ -58,7 +58,7 @@ defmodule Drill do
   contains the seeder modules.
   In `my_app/config/config.exs`:
   ```
-  config :my_app, Drill, otp_app: :my_app
+  config :drill, :otp_app, :my_app
   ```
 
   3. Run `mix drill --r MyApp.Repo` in the terminal with your project root as the current working directory

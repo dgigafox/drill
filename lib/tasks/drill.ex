@@ -4,7 +4,7 @@ defmodule Mix.Tasks.Drill do
       $ mix drill --r MyApp.Repo
 
   Be sure to set the `otp_app` that contains the seeder modules in your config:
-      config :drill, Drill, otp_app: :my_app
+      config :drill, :otp_app, :my_app
   """
   @shortdoc "Seeding task"
 
@@ -26,8 +26,7 @@ defmodule Mix.Tasks.Drill do
   end
 
   def seed(repo) do
-    otp_app = :drill |> Application.fetch_env!(Drill) |> Keyword.fetch!(:otp_app)
-
+    otp_app = Application.fetch_env!(:drill, :otp_app)
     {:ok, modules} = :application.get_key(otp_app, :modules)
 
     seeder_modules =
