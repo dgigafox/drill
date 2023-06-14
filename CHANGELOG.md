@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Remove Drill.Demo.Repo from being run on dev
 - Rename module with `Demo` to `Test` (e.g. `Drill.Demo.Repo` is renamed to `Drill.Test.Repo`)
 
-## [1.0.0-dev] - 2023-06-14
+## [1.0.0] - 2023-06-14
 
 - Upgrade Elixir & Erlang tool versions to 1.14.5-otp-25 and 25.3.2, respectively
 - Add new required callback `factory/0`
