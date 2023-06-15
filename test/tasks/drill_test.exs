@@ -19,7 +19,7 @@ defmodule Mix.Tasks.DrillTest do
     end
 
     test "seeds the database" do
-      Mix.Task.run("drill", ["--r", "NonExistingRepo"])
+      Mix.Task.run("drill", ["-r", "Drill.Test.Repo"])
 
       assert [
                %{id: user1_id, email: "email1@example.com"},

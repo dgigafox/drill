@@ -3,65 +3,58 @@ defmodule Drill do
   Drill is an elixir seeder library inspired by [Seed Fu](https://github.com/mbleigh/seed-fu) and [Phinx](https://github.com/cakephp/phinx).
 
   ## Usage
-  1. Create your seeder modules. The directory where the seeder modules are located
-  does not matter as long as it has `use Drill, ...`.
+  1. Create your seeder modules. The directory where the seeder modules should be located
+   is described on [mix drill documentation](https://hexdocs.pm/drill/Mix.Tasks.Drill.html).
 
-  In `my_app/lib/seeds/user.ex`:
+  In `my_app/priv/repo/seeds/user.exs`:
 
   ```
   defmodule MyApp.Seeds.User do
-    use Drill, key: :users, source: MyApp.Accounts.User
+  use Drill, key: :users, source: MyApp.Accounts.User
 
-    def factory do
-      %{
-        first_name: Person.first_name(),
-        last_name: Person.last_name()
-      }
-    end
+  def factory do
+    %{
+      first_name: Person.first_name(),
+      last_name: Person.last_name()
+    }
+  end
 
-    def run(_context) do
-      [
-        seed(email: "email1@example.com"),
-        seed(email: "email2@example.com"),
-        seed(email: "email3@example.com")
-      ]
-    end
+  def run(_context) do
+    [
+      seed(email: "email1@example.com"),
+      seed(email: "email2@example.com"),
+      seed(email: "email3@example.com")
+    ]
+  end
   end
   ```
 
-  In `my_app/lib/seeds/post.ex`:
+  In `my_app/priv/repo/seeds/post.exs`:
 
   ```
   defmodule MyApp.Seeds.Post do
-    use Drill, key: :posts, source: MyApp.Blogs.Post
-    alias Faker.Lorem
+  use Drill, key: :posts, source: MyApp.Blogs.Post
+  alias Faker.Lorem
 
-    def deps do
-      [MyApp.Seeds.User]
-    end
+  def deps do
+    [MyApp.Seeds.User]
+  end
 
-    def factory do
-      %{content: Lorem.paragraph()}
-    end
+  def factory do
+    %{content: Lorem.paragraph()}
+  end
 
-    def run(%Drill.Context{seeds: %{users: [user1, user2, user3 | _]}}) do
-      [
-        seed(user_id: user1.id),
-        seed(user_id: user2.id),
-        seed(user_id: user3.id)
-      ]
-    end
+  def run(%Drill.Context{seeds: %{users: [user1, user2, user3 | _]}}) do
+    [
+      seed(user_id: user1.id),
+      seed(user_id: user2.id),
+      seed(user_id: user3.id)
+    ]
+  end
   end
   ```
 
-  2. Configure drill by adding the name of your application. This will let drill know which application
-  contains the seeder modules.
-  In `my_app/config/config.exs`:
-  ```
-  config :drill, :otp_app, :my_app
-  ```
-
-  3. Run `mix drill --r MyApp.Repo` in the terminal with your project root as the current working directory
+  2. Run `mix drill -r MyApp.Repo` in the terminal with your project root as the current working directory
 
   ## Installation
   This project is not yet published on [Hex](https://hex.pm/packages) so for the meantime you can add it to
