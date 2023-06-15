@@ -19,6 +19,7 @@ defmodule DrillTest do
              context_key: 0,
              deps: 0,
              factory: 0,
+             on_conflict: 0,
              run: 1,
              schema: 0,
              seed: 0,
