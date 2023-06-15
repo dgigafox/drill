@@ -1,16 +1,24 @@
 defmodule Mix.Tasks.Drill do
   @moduledoc """
-  Runs all seeder modules that `use` Drill. Needs the Repo as an argument.
-      $ mix drill --r MyApp.Repo
+  Runs all seeder modules under "priv/YOUR_REPO/seeds. Needs the Repo as an argument.
+      $ mix drill -r MyApp.Repo
 
-  Be sure to set the `otp_app` that contains the seeder modules in your config:
-      config :drill, :otp_app, :my_app
+  Setting seeds directory is similar to [Ecto migration](https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Migrate.html),
+  1. "YOUR_REPO" is the last segment in your repository name. E.g. MyApp.MyRepo will use
+  "priv/my_repo/seeds".
+  2. You can configure a repository to use another directory by specifying the :priv key under the repository configuration.
+  The "seeds" part will be automatically appended to it. For instance, to use "priv/custom_repo/seeds":
+      config :my_app, MyApp.Repo, priv: "priv/custom_repo"
+  3. You can also set the directory by adding the following to your config:
+      config :drill, :directory, "seeds"
   """
+
   @shortdoc "Seeding task"
 
   use Mix.Task
   import Mix.Ecto
 
+  alias Drill.Seeder
   alias Drill.Utils
   alias Ecto.Migrator
 
@@ -26,13 +34,13 @@ defmodule Mix.Tasks.Drill do
   end
 
   def seed(repo) do
-    otp_app = Application.fetch_env!(:drill, :otp_app)
-    {:ok, modules} = :application.get_key(otp_app, :modules)
+    otp_app = Application.get_env(:drill, :otp_app)
 
-    seeder_modules =
-      Enum.filter(modules, fn module ->
-        Drill in (module.__info__(:attributes)[:behaviour] || [])
-      end)
+    if otp_app,
+      do: IO.warn("Setting otp_app is deprecated. It will now be inferred from the repo.")
+
+    seed_dir = Application.get_env(:drill, :directory, "seeds")
+    seeder_modules = Seeder.list_seeder_modules(repo, seed_dir)
 
     Mix.shell().info("Arranging modules by dependencies")
 
