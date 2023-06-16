@@ -5,16 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.0.1-dev]
-
-### Fixed
-
-- Remove redundant config naming to just `config :drill, :otp_app, :my_app`
+## [1.1.0] - 2023-06-16
 
 ### Added
 
 - Allow user to set `on_conflict` strategy using optional callback `on_conflict/0`
-- Require seeder files to be .exs
+- Require seeder files to be .exs and remove the need to config `:otp_app`
 - Allow user to set `timeout` through config. E.g. `config :drill, :timeout, :infinity`
 
 ## [1.0.0] - 2023-06-14

@@ -6,7 +6,7 @@ defmodule Drill.MixProject do
   def project do
     [
       app: :drill,
-      version: "0.1.1",
+      version: "1.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),

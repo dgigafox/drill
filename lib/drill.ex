@@ -67,6 +67,11 @@ defmodule Drill do
   end
   ```
 
+  ## Configurations
+  ### Timeout
+  Default timeout is 600 seconds or 10 minutes. You may configure the task timeout in your config.exs file e.g.:
+    config :drill, :timeout, 10_000
+
   ## `use Drill` options
   * `source` - source is the schema module
   * `key` - once the seeder module runs, the inserted result will be saved to `%Drill.Context{}.seeds[key]`.

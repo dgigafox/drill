@@ -77,6 +77,13 @@ def deps do
 end
 ```
 
+## Configurations
+
+### Timeout
+
+Default timeout is 600 seconds or 10 minutes. You may configure the task timeout in your config.exs file. For example:
+`config :drill, :timeout, 10_000`
+
 ## `use Drill` options
 
 - `source` - source is the schema module
