@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Allow user to set `on_conflict` strategy using optional callback `on_conflict/0`
+- Require seeder files to be .exs
+- Allow user to set `timeout` through config. E.g. `config :drill, :timeout, :infinity`
 
 ## [1.0.0] - 2023-06-14
 

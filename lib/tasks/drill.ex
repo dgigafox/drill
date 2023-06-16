@@ -39,6 +39,7 @@ defmodule Mix.Tasks.Drill do
     if otp_app,
       do: IO.warn("Setting otp_app is deprecated. It will now be inferred from the repo.")
 
+    task_timeout = Application.get_env(:drill, :timeout, 600_000)
     seed_dir = Application.get_env(:drill, :directory, "seeds")
     seeder_modules = Seeder.list_seeder_modules(repo, seed_dir)
 
@@ -68,7 +69,7 @@ defmodule Mix.Tasks.Drill do
         %{ctx | seeds: seeds}
       end)
     end)
-    |> Task.await()
+    |> Task.await(task_timeout)
 
     Mix.shell().info("Drill seeded successfully")
   end
