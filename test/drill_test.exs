@@ -5,8 +5,6 @@ defmodule DrillTest do
   contents =
     quote do
       use Drill, source: MySource, key: :my_key
-
-      def factory, do: %{}
       def run(_), do: []
     end
 

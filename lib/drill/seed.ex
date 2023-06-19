@@ -10,6 +10,4 @@ defmodule Drill.Seed do
     full_attrs = seeder.factory() |> Map.merge(input_attrs)
     %__MODULE__{attrs: full_attrs}
   end
-
-  def to_entries(seeds), do: Enum.map(seeds, & &1.attrs)
 end

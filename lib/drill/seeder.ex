@@ -2,6 +2,7 @@ defmodule Drill.Seeder do
   @moduledoc """
   Module responsible for seeding data into the database
   """
+  alias Drill.Seed
   @spec list_seeder_modules(repo :: module(), directory :: binary()) :: [module()]
   def list_seeder_modules(repo, directory \\ "seeds") do
     repo
@@ -34,5 +35,20 @@ defmodule Drill.Seeder do
 
   defp seeder?(module) do
     Drill in (module.__info__(:attributes)[:behaviour] || [])
+  end
+
+  @spec build_entries(module(), Drill.Context.t()) :: list(map())
+  def build_entries(seeder, ctx) do
+    ctx
+    |> seeder.run()
+    |> Enum.filter(&is_struct(&1, Seed))
+    |> Enum.map(& &1.attrs)
+  end
+
+  @spec filter_manual_seeds(module(), Drill.Context.t()) :: list(any())
+  def filter_manual_seeds(seeder, ctx) do
+    ctx
+    |> seeder.run()
+    |> Enum.reject(&is_struct(&1, Seed))
   end
 end
