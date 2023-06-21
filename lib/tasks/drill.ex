@@ -15,6 +15,8 @@ defmodule Mix.Tasks.Drill do
 
   @shortdoc "Seeding task"
 
+  @switches [seeds_path: :string]
+
   use Mix.Task
   import Mix.Ecto
 
@@ -26,22 +28,24 @@ defmodule Mix.Tasks.Drill do
   def run(args) do
     repo = parse_repo(args) |> hd()
     ensure_repo(repo, [])
+    {opts, _} = OptionParser.parse!(args, switches: @switches)
+
+    opts =
+      opts
+      |> Keyword.put(:task_timeout, Application.get_env(:drill, :timeout, 600_000))
+      |> Keyword.put_new(
+        :seeds_path,
+        Seeder.seeders_path(repo, Application.get_env(:drill, :directory, "seeds"))
+      )
 
     Migrator.with_repo(repo, fn repo ->
       Migrator.run(repo, :up, all: true)
-      seed(repo)
+      seed(repo, opts)
     end)
   end
 
-  def seed(repo) do
-    otp_app = Application.get_env(:drill, :otp_app)
-
-    if otp_app,
-      do: IO.warn("Setting otp_app is deprecated. It will now be inferred from the repo.")
-
-    task_timeout = Application.get_env(:drill, :timeout, 600_000)
-    seed_dir = Application.get_env(:drill, :directory, "seeds")
-    seeder_modules = Seeder.list_seeder_modules(repo, seed_dir)
+  defp seed(repo, opts) do
+    seeder_modules = Seeder.list_seeder_modules(opts[:seeds_path])
 
     Mix.shell().info("Arranging modules by dependencies")
 
@@ -73,7 +77,7 @@ defmodule Mix.Tasks.Drill do
         %{ctx | seeds: seeds}
       end)
     end)
-    |> Task.await(task_timeout)
+    |> Task.await(opts[:task_timeout])
 
     Mix.shell().info("Drill seeded successfully")
   end

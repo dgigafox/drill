@@ -3,16 +3,15 @@ defmodule Drill.Seeder do
   Module responsible for seeding data into the database
   """
   alias Drill.Seed
-  @spec list_seeder_modules(repo :: module(), directory :: binary()) :: [module()]
-  def list_seeder_modules(repo, directory \\ "seeds") do
-    repo
-    |> seeders_path(directory)
+  @spec list_seeder_modules(seeders_path :: binary()) :: [module()]
+  def list_seeder_modules(seeders_path) do
+    seeders_path
     |> list_seeder_files()
     |> compile_seeders()
     |> Enum.filter(&seeder?/1)
   end
 
-  defp seeders_path(repo, directory) do
+  def seeders_path(repo, directory) do
     config = repo.config()
     priv = config[:priv] || "priv/#{repo |> Module.split() |> List.last() |> Macro.underscore()}"
     app = Keyword.fetch!(config, :otp_app)
