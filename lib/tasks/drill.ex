@@ -57,7 +57,7 @@ defmodule Mix.Tasks.Drill do
       |> warn_not_able_to_run_seeders(seeder_modules)
 
     Task.async(fn ->
-      Enum.reduce(seeder_modules, %Drill.Context{}, fn seeder, ctx ->
+      Enum.reduce(seeder_modules, %Drill.Context{repo: repo}, fn seeder, ctx ->
         Mix.shell().info("#{seeder} started")
 
         key = seeder.context_key()

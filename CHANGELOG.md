@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Add `:repo` to `Drill.Context`
 - Allow user to override location of seeder file through `seeds_path` option when running `mix drill`. E.g. `mix drill -r MyApp.Repo --seeds-path priv/seeds/core`
 - Allow manual seeds and set callback `factory/0` to optional
 

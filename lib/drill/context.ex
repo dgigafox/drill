@@ -7,8 +7,14 @@ defmodule Drill.Context do
           seeders: [atom()],
           pending_seeders: [atom()],
           completed_seeders: [atom()],
-          seed_count: %{atom() => integer() | {:for_each, atom(), keyword()}}
+          seed_count: %{atom() => integer() | {:for_each, atom(), keyword()}},
+          repo: atom()
         }
 
-  defstruct seeds: %{}, seeders: [], pending_seeders: [], completed_seeders: [], seed_count: %{}
+  defstruct seeds: %{},
+            seeders: [],
+            pending_seeders: [],
+            completed_seeders: [],
+            seed_count: %{},
+            repo: nil
 end
