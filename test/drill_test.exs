@@ -12,7 +12,6 @@ defmodule DrillTest do
 
   test "definitions" do
     assert Demo.__info__(:functions) == [
-             autogenerate: 0,
              constraints: 0,
              context_key: 0,
              deps: 0,

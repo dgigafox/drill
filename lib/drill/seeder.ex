@@ -50,4 +50,13 @@ defmodule Drill.Seeder do
     |> seeder.run()
     |> Enum.reject(&is_struct(&1, Seed))
   end
+
+  @spec autogenerate_fields(module()) :: map()
+  def autogenerate_fields(schema) do
+    for {fields, {func, name, args}} <- schema.__schema__(:autogenerate),
+        field <- fields,
+        into: %{} do
+      {field, apply(func, name, args)}
+    end
+  end
 end

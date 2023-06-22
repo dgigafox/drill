@@ -125,14 +125,6 @@ defmodule Drill do
       @impl true
       def deps, do: []
 
-      def autogenerate do
-        for {fields, {func, name, args}} <- schema().__schema__(:autogenerate),
-            field <- fields,
-            into: %{} do
-          {field, apply(func, name, args)}
-        end
-      end
-
       def seed(attrs \\ []), do: Seed.new(__MODULE__, attrs)
 
       defoverridable deps: 0, constraints: 0, on_conflict: 0, factory: 0
