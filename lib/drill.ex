@@ -57,12 +57,11 @@ defmodule Drill do
   2. Run `mix drill -r MyApp.Repo` in the terminal with your project root as the current working directory
 
   ## Installation
-  This project is not yet published on [Hex](https://hex.pm/packages) so for the meantime you can add it to
-  the list of dependencies in mix.exs as a github path:
+  Add `drill` to your list of dependencies in `mix.exs`:
   ```
   def deps do
     [
-      {:drill, git: "git@github.com:dgigafox/drill.git"}
+      {:drill, "~> 1.1"}
     ]
   end
   ```

@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Allow user to override location of seeder file through `seeds_path` option when running `mix drill`. E.g. `mix drill -r MyApp.Repo --seeds-path priv/seeds/core`
+- Allow manual seeds and set callback `factory/0` to optional
+
 ## [1.1.0] - 2023-06-16
 
 ### Added

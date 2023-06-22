@@ -11,6 +11,8 @@ defmodule Mix.Tasks.Drill do
       config :my_app, MyApp.Repo, priv: "priv/custom_repo"
   3. You can also set the directory by adding the following to your config:
       config :drill, :directory, "seeds"
+  4. Lastly, you can override the path of the seeds directory by passing the --seeds-path option:
+      $ mix drill -r MyApp.Repo --seeds-path priv/custom_repo/seeds
   """
 
   @shortdoc "Seeding task"
