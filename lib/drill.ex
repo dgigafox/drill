@@ -74,7 +74,7 @@ defmodule Drill do
   ## `use Drill` options
   * `source` - source is the schema module
   * `key` - once the seeder module runs, the inserted result will be saved to `%Drill.Context{}.seeds[key]`.
-  Drill.Context struct is passed to one of Drill's callback which is `run/1` to be discussed in the `Callback`
+  Drill.Context struct is passed to one of Drill's callback which is `run/1` to be discussed in the `Callbacks`
   section below.
 
   ## Callbacks
