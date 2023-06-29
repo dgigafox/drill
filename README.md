@@ -84,10 +84,11 @@ Default timeout is 600 seconds or 10 minutes. You may configure the task timeout
 
 ## `use Drill` options
 
-- `source` - source is the schema module
-- `key` - once the seeder module runs, the inserted result will be saved to `%Drill.Context{}.seeds[key]`.
+- `source` (required) - source is the schema module
+- `key` (required) - once the seeder module runs, the inserted result will be saved to `%Drill.Context{}.seeds[key]`.
   Drill.Context struct is passed to one of Drill's callback which is `run/1` to be discussed in the `Callbacks`
   section below.
+- `returning` (optional) - selects which fields to return. Defaults to true. See [Ecto.Repo.insert_all/3](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert_all/3)
 
 ## Callbacks
 

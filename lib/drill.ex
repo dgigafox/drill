@@ -72,10 +72,11 @@ defmodule Drill do
     config :drill, :timeout, 10_000
 
   ## `use Drill` options
-  * `source` - source is the schema module
-  * `key` - once the seeder module runs, the inserted result will be saved to `%Drill.Context{}.seeds[key]`.
+  * `source` (required) - source is the schema module
+  * `key` (required) - once the seeder module runs, the inserted result will be saved to `%Drill.Context{}.seeds[key]`.
   Drill.Context struct is passed to one of Drill's callback which is `run/1` to be discussed in the `Callbacks`
   section below.
+  * `returning` (optional) - selects which fields to return. Defaults to true. See [Ecto.Repo.insert_all/3](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert_all/3)
 
   ## Callbacks
   * `constraints/0` (optional) - returns a list of column names to verify for conflicts. If a conflict occurs all fields will
@@ -105,12 +106,14 @@ defmodule Drill do
   defmacro __using__(opts \\ []) when is_list(opts) do
     source = Keyword.fetch!(opts, :source)
     key = Keyword.fetch!(opts, :key)
+    returning = Keyword.get(opts, :returning, true)
 
     quote do
       @behaviour Drill
 
       def context_key, do: unquote(key)
       def schema, do: unquote(source)
+      def returning, do: unquote(returning)
 
       @impl true
       def constraints, do: []

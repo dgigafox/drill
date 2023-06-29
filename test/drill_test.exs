@@ -17,6 +17,7 @@ defmodule DrillTest do
              deps: 0,
              factory: 0,
              on_conflict: 0,
+             returning: 0,
              run: 1,
              schema: 0,
              seed: 0,
