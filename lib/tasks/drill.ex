@@ -24,7 +24,6 @@ defmodule Mix.Tasks.Drill do
 
   alias Drill.Seeder
   alias Drill.Utils
-  alias Ecto.Migrator
 
   @impl Mix.Task
   def run(args) do
@@ -40,10 +39,11 @@ defmodule Mix.Tasks.Drill do
         Seeder.seeders_path(repo, Application.get_env(:drill, :directory, "seeds"))
       )
 
-    Migrator.with_repo(repo, fn repo ->
-      Migrator.run(repo, :up, all: true)
-      seed(repo, opts)
-    end)
+    # Start the app
+    Mix.Task.run("app.start", args)
+
+    # Run the seed
+    seed(repo, opts)
   end
 
   defp seed(repo, opts) do
