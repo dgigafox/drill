@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.2.0] - 2023-07-02
 
 ### Added
 
@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add `:repo` to `Drill.Context`
 - Allow user to override location of seeder file through `seeds_path` option when running `mix drill`. E.g. `mix drill -r MyApp.Repo --seeds-path priv/seeds/core`
 - Allow manual seeds and set callback `factory/0` to optional
+
+### Fixed
+
+- Remove running migration when running task. Migration should now be run by explicitly before running `mix drill`
+- Start all registered apps before seeding to ensure apps required by seeds have started such as uploaders, genservers, dependencies, etc.
 
 ## [1.1.0] - 2023-06-16
 
