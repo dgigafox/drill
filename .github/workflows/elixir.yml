@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Elixir
+      - name: Setup elixir
         uses: erlef/setup-beam@v1
         with:
           elixir-version: ${{ matrix.elixir }}
@@ -63,10 +63,10 @@ jobs:
       - name: Check formatting
         run: mix format --check-formatted
 
-      - name: Run Credo
+      - name: Run credo
         run: mix credo --strict
 
-      - name: Retrieve PLT Cache
+      - name: Retrieve PLT cache
         uses: actions/cache@v3
         id: plt-cache
         with:
