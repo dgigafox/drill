@@ -1,30 +1,22 @@
 name: Elixir CI
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-permissions:
-  contents: read
+on: push
 
 env:
   MIX_ENV: test
-
 jobs:
   build:
-    name: Build and test
     runs-on: ubuntu-latest
 
     services:
-      db:
+      postgres:
+        image: postgres
         env:
-          POSTGRES_USER: ${{secrets.POSTGRES_USER}}
-          POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
-          POSTGRES_DB: ${{secrets.POSTGRES_DB}}
-        image: postgres:13.2
-        ports: ["5432:5432"]
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_drill
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -33,17 +25,22 @@ jobs:
 
     strategy:
       matrix:
-        elixir: [1.13.4]
-        otp: [24.3.3]
+        elixir: ["1.13", "1.14", "1.15"]
+        otp: ["25", "26"]
+        exclude:
+          - elixir: 1.13
+            otp: 26
+          - elixir: 1.14
+            otp: 26
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Elixir
-        uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
+      - name: Setup elixir
+        uses: erlef/setup-beam@v1
         with:
-          elixir-version: ${{ matrix.elixir }} # Define the elixir version [required]
-          otp-version: ${{ matrix.otp }} # Define the OTP version [required]
+          elixir-version: ${{ matrix.elixir }}
+          otp-version: ${{ matrix.otp }}
 
       - name: Restore dependencies cache
         uses: actions/cache@v3
@@ -60,13 +57,16 @@ jobs:
           mix local.hex --force
           mix deps.get
 
-      - name: Check Formatting
+      - name: Compile & error on warning
+        run: mix compile --warnings-as-errors
+
+      - name: Check formatting
         run: mix format --check-formatted
 
-      - name: Run Credo
+      - name: Run credo
         run: mix credo --strict
 
-      - name: Retrieve PLT Cache
+      - name: Retrieve PLT cache
         uses: actions/cache@v3
         id: plt-cache
         with:
