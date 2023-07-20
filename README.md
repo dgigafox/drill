@@ -70,7 +70,7 @@ Add `drill` to your list of dependencies in `mix.exs`:
 ```
 def deps do
   [
-    {:drill, "~> 1.1"}
+    {:drill, "~> 1.2"}
   ]
 end
 ```
