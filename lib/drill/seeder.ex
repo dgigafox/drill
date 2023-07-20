@@ -36,18 +36,16 @@ defmodule Drill.Seeder do
     Drill in (module.__info__(:attributes)[:behaviour] || [])
   end
 
-  @spec build_entries(module(), Drill.Context.t()) :: list(map())
-  def build_entries(seeder, ctx) do
-    ctx
-    |> seeder.run()
+  @spec build_entries_from_seeds(list(any())) :: list(map())
+  def build_entries_from_seeds(seeds) do
+    seeds
     |> Enum.filter(&is_struct(&1, Seed))
     |> Enum.map(& &1.attrs)
   end
 
-  @spec filter_manual_seeds(module(), Drill.Context.t()) :: list(any())
-  def filter_manual_seeds(seeder, ctx) do
-    ctx
-    |> seeder.run()
+  @spec filter_manual_seeds(list(any())) :: list(any())
+  def filter_manual_seeds(seeds) do
+    seeds
     |> Enum.reject(&is_struct(&1, Seed))
   end
 
