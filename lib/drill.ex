@@ -120,16 +120,16 @@ defmodule Drill do
       def schema, do: unquote(source)
       def returning, do: unquote(returning)
 
-      @impl true
+      @impl Drill
       def constraints, do: []
 
-      @impl true
+      @impl Drill
       def on_conflict, do: :replace_all
 
-      @impl true
+      @impl Drill
       def factory, do: %{}
 
-      @impl true
+      @impl Drill
       def deps, do: []
 
       def seed(attrs \\ []), do: Seed.new(__MODULE__, attrs)
