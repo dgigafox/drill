@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Remove warning when any seeder has nonexisting dependency
+
+### Added
+
+- Raise and display error when any seeder has nonexisting dependency
+
+### Fixed
+
+- Update `constraints/0` callback typespec
+
 ## [1.2.1] - 2023-07-20
 
 ### Added
