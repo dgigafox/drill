@@ -100,7 +100,7 @@ defmodule Drill do
   @callback deps() :: [atom()]
   @callback run(Context.t()) :: [any()]
   @callback factory() :: map()
-  @callback constraints() :: [atom()]
+  @callback constraints() :: [atom()] | {:unsafe_fragment, binary()}
   @callback on_conflict() ::
               :raise
               | :nothing
