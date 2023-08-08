@@ -48,13 +48,11 @@ defmodule Mix.Tasks.Drill do
 
   defp seed(repo, opts) do
     seeder_modules = Seeder.list_seeder_modules(opts[:seeds_path])
+    ensure_deps_exists!(seeder_modules)
 
     Mix.shell().info("Arranging modules by dependencies")
 
-    seeder_modules =
-      seeder_modules
-      |> Utils.sort_seeders_by_deps()
-      |> warn_not_able_to_run_seeders(seeder_modules)
+    seeder_modules = Utils.sort_seeders_by_deps(seeder_modules)
 
     Task.async(fn ->
       Enum.reduce(seeder_modules, %Drill.Context{repo: repo}, fn seeder, ctx ->
@@ -99,17 +97,25 @@ defmodule Mix.Tasks.Drill do
     )
   end
 
-  defp warn_not_able_to_run_seeders(arranged_seeders, all_seeders) do
-    unmatched_seeders = all_seeders -- arranged_seeders
+  defp ensure_deps_exists!(seeders) do
+    seeder_nonexisting_deps_map =
+      seeders
+      |> Enum.map(fn seeder ->
+        deps = seeder.deps()
+        {seeder, Enum.filter(deps, &(&1 not in seeders))}
+      end)
+      |> Map.new()
 
-    if Enum.empty?(unmatched_seeders) do
-      arranged_seeders
-    else
-      Mix.shell().info(
-        "Unable to run seeders due to deps not found: #{inspect(unmatched_seeders)}"
-      )
+    any_non_existing_deps? = Enum.any?(seeder_nonexisting_deps_map, &(elem(&1, 1) !== []))
 
-      arranged_seeders
+    if any_non_existing_deps? do
+      seeder_nonexisting_deps_map
+      |> Enum.filter(&(elem(&1, 1) !== []))
+      |> Enum.each(fn {seeder, non_existing_deps} ->
+        Mix.shell().error("#{seeder} dependencies cannot be found: #{inspect(non_existing_deps)}")
+      end)
+
+      raise("Drill failed to run")
     end
   end
 end

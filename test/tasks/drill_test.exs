@@ -47,5 +47,13 @@ defmodule Mix.Tasks.DrillTest do
                |> Repo.preload(:user)
                |> Enum.sort_by(& &1.user.email)
     end
+
+    test "raises an error if any seeder has nonexisting deps" do
+      seeds_path = Path.join(:code.priv_dir(:drill), "repo/with_nonexisting_deps")
+
+      assert_raise RuntimeError, fn ->
+        Mix.Task.rerun("drill", ["-r", "Drill.Test.Repo", "--seeds-path", seeds_path])
+      end
+    end
   end
 end
