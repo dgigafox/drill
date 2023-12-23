@@ -15,7 +15,7 @@ Drill is an elixir seeder library inspired by [Seed Fu](https://github.com/mblei
 
 In `my_app/priv/repo/seeds/user.exs`:
 
-```
+```elixir
 defmodule MyApp.Seeds.User do
   use Drill, key: :users, source: MyApp.Accounts.User
 
@@ -38,7 +38,7 @@ end
 
 In `my_app/priv/repo/seeds/post.exs`:
 
-```
+```elixir
 defmodule MyApp.Seeds.Post do
   use Drill, key: :posts, source: MyApp.Blogs.Post
   alias Faker.Lorem
@@ -67,7 +67,7 @@ end
 
 Add `drill` to your list of dependencies in `mix.exs`:
 
-```
+```elixir
 def deps do
   [
     {:drill, "~> 1.2"}
