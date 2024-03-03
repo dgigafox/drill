@@ -15,4 +15,4 @@ config :drill, Drill.Test.Repo,
 config :drill, ecto_repos: [Drill.Test.Repo]
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warning
