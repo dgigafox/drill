@@ -8,7 +8,7 @@ defmodule Drill.Utils do
   next to seeders with deps already in the list, and so on...
   """
   def sort_seeders_by_deps(seeders) do
-    seeders_with_no_deps = Enum.filter(seeders, &Enum.empty?(&1.deps))
+    seeders_with_no_deps = Enum.filter(seeders, &Enum.empty?(&1.deps()))
 
     seeders_with_no_deps
     |> do_sort_seeders_by_deps(seeders -- seeders_with_no_deps)
@@ -19,7 +19,7 @@ defmodule Drill.Utils do
     next_seeders =
       Enum.filter(
         remaining_seeders,
-        &MapSet.subset?(MapSet.new(&1.deps), MapSet.new(arranged_seeders))
+        &MapSet.subset?(MapSet.new(&1.deps()), MapSet.new(arranged_seeders))
       )
 
     arranged_seeders = List.flatten([next_seeders | arranged_seeders])
