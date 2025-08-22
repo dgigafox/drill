@@ -92,6 +92,7 @@ defmodule Drill do
   ## Command line options
   * `--repo` - specifies the repository to use
   * `--seeds-path` - overrides the default seeds path
+  * `--prefix` - specifies the prefix to use for the database tables
   * Command line options for `mix app.start` documented [here](https://hexdocs.pm/mix/1.15.2/Mix.Tasks.App.Start.html#module-command-line-options)
   """
   alias Drill.Context
