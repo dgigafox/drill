@@ -48,6 +48,7 @@ defmodule Mix.Tasks.Drill do
 
   defp seed(repo, opts) do
     seeder_modules = Seeder.list_seeder_modules(opts[:seeds_path])
+    prefix = opts[:prefix]
     ensure_deps_exists!(seeder_modules)
 
     Mix.shell().info("Arranging modules by dependencies")
@@ -55,7 +56,7 @@ defmodule Mix.Tasks.Drill do
     seeder_modules = Utils.sort_seeders_by_deps(seeder_modules)
 
     Task.async(fn ->
-      Enum.reduce(seeder_modules, %Drill.Context{repo: repo}, fn seeder, ctx ->
+      Enum.reduce(seeder_modules, %Drill.Context{repo: repo, prefix: prefix}, fn seeder, ctx ->
         Mix.shell().info("#{seeder} started")
 
         key = seeder.context_key()
@@ -78,7 +79,7 @@ defmodule Mix.Tasks.Drill do
             conflict_target: constraints,
             on_conflict: on_conflict,
             returning: returning,
-            prefix: opts[:prefix]
+            prefix: prefix
           )
 
         seeds = Map.put(ctx.seeds, key, manual_seeds ++ result)
