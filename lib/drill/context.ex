@@ -8,7 +8,8 @@ defmodule Drill.Context do
           pending_seeders: [atom()],
           completed_seeders: [atom()],
           seed_count: %{atom() => integer() | {:for_each, atom(), keyword()}},
-          repo: atom()
+          repo: atom(),
+          prefix: String.t() | nil
         }
 
   defstruct seeds: %{},
@@ -16,5 +17,6 @@ defmodule Drill.Context do
             pending_seeders: [],
             completed_seeders: [],
             seed_count: %{},
-            repo: nil
+            repo: nil,
+            prefix: nil
 end
